@@ -1,4 +1,7 @@
 
+using CompanyProject.Infrustructure.Context;
+using Microsoft.EntityFrameworkCore;
+
 namespace CompanyProject.API
 {
     public class Program
@@ -8,6 +11,7 @@ namespace CompanyProject.API
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
 
             builder.Services.AddControllers();
             // Learn more about configuring OpenAPI at https://aka.ms/aspnet/openapi
