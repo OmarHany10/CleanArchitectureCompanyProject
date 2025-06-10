@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CompanyProject.Data\CompanyProject.Data.csproj" />
+    <ProjectReference Include="..\CompanyProject.Infrustructure\CompanyProject.Infrustructure.csproj" />
+    <ProjectReference Include="..\CompanyProject.Service\CompanyProject.Service.csproj" />
+  </ItemGroup>
+
+</Project>
