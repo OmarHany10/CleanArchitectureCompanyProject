@@ -20,7 +20,7 @@ namespace CompanyProject.Infrustructure.Repositories
         }
         public async Task<List<Employee>> GetAllAsync()
         {
-            return await context.employees.ToListAsync();
+            return await context.employees.Include(e => e.Department).ToListAsync();
         }
     }
 }

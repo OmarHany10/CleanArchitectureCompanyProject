@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="AutoMapper" Version="14.0.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
   </ItemGroup>
 
@@ -20,7 +21,7 @@
     <Folder Include="Features\Employees\Commands\Handlers\" />
     <Folder Include="Features\Employees\Commands\Models\" />
     <Folder Include="Features\Employees\Commands\Validators\" />
-    <Folder Include="Features\Mapping\" />
+    <Folder Include="Features\Mapping\Employee\CommandMapping\" />
   </ItemGroup>
 
 </Project>
