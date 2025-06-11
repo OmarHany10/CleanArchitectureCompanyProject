@@ -1,7 +1,14 @@
-﻿namespace CompanyProject.Core
-{
-    public class ModuleCoreDependencies
-    {
+﻿using Microsoft.Extensions.DependencyInjection;
+using System.Reflection;
 
+namespace CompanyProject.Core
+{
+    public static class ModuleCoreDependencies
+    {
+        public static IServiceCollection AddCoreDependencies(this IServiceCollection services)
+        {
+            services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblies(Assembly.GetExecutingAssembly()));
+            return services;
+        }
     }
 }

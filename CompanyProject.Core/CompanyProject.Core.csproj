@@ -7,9 +7,20 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="MediatR" Version="12.5.0" />
+  </ItemGroup>
+
+  <ItemGroup>
     <ProjectReference Include="..\CompanyProject.Data\CompanyProject.Data.csproj" />
     <ProjectReference Include="..\CompanyProject.Infrustructure\CompanyProject.Infrustructure.csproj" />
     <ProjectReference Include="..\CompanyProject.Service\CompanyProject.Service.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Features\Employees\Commands\Handlers\" />
+    <Folder Include="Features\Employees\Commands\Models\" />
+    <Folder Include="Features\Employees\Commands\Validators\" />
+    <Folder Include="Features\Mapping\" />
   </ItemGroup>
 
 </Project>
