@@ -1,26 +1,22 @@
 ﻿using CompanyProject.Data.Models;
+using CompanyProject.Infrustructure.BaseRepository;
 using CompanyProject.Infrustructure.Context;
 using CompanyProject.Infrustructure.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CompanyProject.Infrustructure.Repositories
 {
-    public class EmployeeRepository : IEmployeeRepository
+    public class EmployeeRepository :BaseRepository<Employee>, IEmployeeRepository
     {
-        private readonly ApplicationDbContext context;
+        private readonly DbSet<Employee> employees;
 
-        public EmployeeRepository(ApplicationDbContext context)
+        public EmployeeRepository(ApplicationDbContext context): base(context)
         {
-            this.context = context;
+            employees = context.employees;
         }
         public async Task<List<Employee>> GetAllAsync()
         {
-            return await context.employees.Include(e => e.Department).ToListAsync();
+            return await employees.Include(e => e.Department).ToListAsync();
         }
     }
 }
