@@ -12,6 +12,7 @@ namespace CompanyProject.Core.Features.Mapping.Employee
         public EmployeeProfile() 
         {
             GetEmployeeListMapping();
+            GetEmployeeByIdMapping();
         }
     }
 }

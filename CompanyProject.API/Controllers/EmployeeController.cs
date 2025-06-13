@@ -19,8 +19,15 @@ namespace CompanyProject.API.Controllers
         [HttpGet("GetAll")]
         public async Task<IActionResult> GetAll()
         {
-            var resutl = await mediator.Send(new GetEmployeeListQuery());
-            return Ok(resutl);
+            var result = await mediator.Send(new GetEmployeeListQuery());
+            return Ok(result);
+        }
+
+        [HttpGet("{Id}")]
+        public async Task<IActionResult> GetById(int Id)
+        {
+            var result = await mediator.Send(new GetEmployeeByIdQuery(Id));
+            return Ok(result);
         }
     }
 }

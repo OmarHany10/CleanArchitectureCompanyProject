@@ -10,5 +10,6 @@ namespace CompanyProject.Service.Interfaces
     public interface IEmployeeService
     {
         public Task<List<Employee>> GetAllAsync();
+        public Task<Employee> GetByIdAsync(int id);
     }
 }
