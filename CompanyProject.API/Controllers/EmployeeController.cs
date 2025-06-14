@@ -1,4 +1,5 @@
-﻿using CompanyProject.Core.Features.Employees.Queries.Models;
+﻿using CompanyProject.Core.Features.Employees.Commands.Models;
+using CompanyProject.Core.Features.Employees.Queries.Models;
 using MediatR;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -27,6 +28,13 @@ namespace CompanyProject.API.Controllers
         public async Task<IActionResult> GetById(int Id)
         {
             var result = await mediator.Send(new GetEmployeeByIdQuery(Id));
+            return Ok(result);
+        }
+
+        [HttpPost("AddEmployee")]
+        public async Task<IActionResult> Add(AddEmployeeComand comand)
+        {
+            var result = await mediator.Send(comand);
             return Ok(result);
         }
     }

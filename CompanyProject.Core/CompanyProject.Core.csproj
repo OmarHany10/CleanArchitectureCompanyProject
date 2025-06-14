@@ -18,10 +18,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Features\Employees\Commands\Handlers\" />
-    <Folder Include="Features\Employees\Commands\Models\" />
     <Folder Include="Features\Employees\Commands\Validators\" />
-    <Folder Include="Features\Mapping\Employee\CommandMapping\" />
   </ItemGroup>
 
 </Project>

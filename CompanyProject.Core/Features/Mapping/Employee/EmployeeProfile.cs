@@ -13,6 +13,7 @@ namespace CompanyProject.Core.Features.Mapping.Employee
         {
             GetEmployeeListMapping();
             GetEmployeeByIdMapping();
+            AddEmployeeMapping();
         }
     }
 }

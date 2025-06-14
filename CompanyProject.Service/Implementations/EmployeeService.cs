@@ -13,11 +13,24 @@ namespace CompanyProject.Service.Implementations
     public class EmployeeService : IEmployeeService
     {
         private readonly IEmployeeRepository employeeRepository;
+        private readonly IDepartmentRepository departmentRepository;
 
-        public EmployeeService(IEmployeeRepository employeeRepository)
+        public EmployeeService(IEmployeeRepository employeeRepository, IDepartmentRepository departmentRepository)
         {
             this.employeeRepository = employeeRepository;
+            this.departmentRepository = departmentRepository;
         }
+
+        public async Task<string> AddAsync(Employee employee)
+        {
+            var department = await departmentRepository.GetByIdAsync(employee.DepartmentId);
+            if (department == null)
+                return $"There is no department has this Id {employee.DepartmentId}";
+
+            await employeeRepository.AddAsync(employee);
+            return null;
+        }
+
         public async Task<List<Employee>> GetAllAsync()
         {
             return await employeeRepository.GetAllAsync();
