@@ -1,9 +1,4 @@
 ﻿using CompanyProject.Core.Features.Employees.Queries.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CompanyProject.Core.Features.Mapping.Employee
 {

@@ -4,11 +4,6 @@ using CompanyProject.Core.Responses;
 using CompanyProject.Data.Models;
 using CompanyProject.Service.Interfaces;
 using MediatR;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CompanyProject.Core.Features.Employees.Commands.Handlers
 {
@@ -29,8 +24,8 @@ namespace CompanyProject.Core.Features.Employees.Commands.Handlers
             var employee = mapper.Map<Employee>(request);
 
             var result = await employeeService.AddAsync(employee);
-            
-            if(result != null)
+
+            if (result != null)
                 return BadRequest<string>(result);
 
             return Created("Added Succefuly");

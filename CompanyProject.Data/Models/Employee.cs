@@ -5,7 +5,7 @@ namespace CompanyProject.Data.Models
 {
     public class Employee
     {
-        public Employee() 
+        public Employee()
         {
             EmployeeProjects = new HashSet<EmployeeProject>();
         }
@@ -15,7 +15,7 @@ namespace CompanyProject.Data.Models
         public string Name { get; set; }
         [MaxLength(200)]
         public string Address { get; set; }
-        [MaxLength (100)]
+        [MaxLength(100)]
         public string Phone { get; set; }
 
         [ForeignKey(nameof(Department))]
