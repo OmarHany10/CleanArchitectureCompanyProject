@@ -8,17 +8,15 @@
 
   <ItemGroup>
     <PackageReference Include="AutoMapper" Version="14.0.0" />
+    <PackageReference Include="FluentValidation.DependencyInjectionExtensions" Version="12.0.0" />
     <PackageReference Include="MediatR" Version="12.5.0" />
+    <PackageReference Include="Microsoft.AspNetCore.Http.Abstractions" Version="2.3.0" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CompanyProject.Data\CompanyProject.Data.csproj" />
     <ProjectReference Include="..\CompanyProject.Infrustructure\CompanyProject.Infrustructure.csproj" />
     <ProjectReference Include="..\CompanyProject.Service\CompanyProject.Service.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Features\Employees\Commands\Validators\" />
   </ItemGroup>
 
 </Project>

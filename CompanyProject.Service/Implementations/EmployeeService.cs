@@ -2,11 +2,6 @@
 using CompanyProject.Infrustructure.Interfaces;
 using CompanyProject.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CompanyProject.Service.Implementations
 {
@@ -40,6 +35,13 @@ namespace CompanyProject.Service.Implementations
         {
             var employee = await employeeRepository.GetTableNoTracking().Include(e => e.Department).FirstOrDefaultAsync(e => e.Id == id);
             return employee;
+        }
+
+        public async Task<bool> IsNameExistAsync(string name)
+        {
+            var employee = await employeeRepository.GetTableNoTracking().FirstOrDefaultAsync(e => e.Name == name);
+            if (employee == null) return false;
+            return true;
         }
     }
 }

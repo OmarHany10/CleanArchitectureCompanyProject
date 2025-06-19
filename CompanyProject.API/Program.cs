@@ -1,9 +1,9 @@
 
 using CompanyProject.Core;
+using CompanyProject.Core.MiddleWare;
 using CompanyProject.Infrustructure;
 using CompanyProject.Infrustructure.Context;
 using CompanyProject.Service;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyProject.API
@@ -16,7 +16,7 @@ namespace CompanyProject.API
 
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
-            
+
             builder.Services.AddInfrustructureDependencies();
             builder.Services.AddServiceDependencies();
             builder.Services.AddCoreDependencies();
@@ -35,6 +35,8 @@ namespace CompanyProject.API
                 app.UseSwagger();
                 app.UseSwaggerUI();
             }
+
+            app.UseMiddleware<ErrorHandlerMiddleware>();
 
             app.UseHttpsRedirection();
 
