@@ -4,11 +4,11 @@ using FluentValidation;
 
 namespace CompanyProject.Core.Features.Employees.Commands.Validators
 {
-    public class AddEmployeeValidator : AbstractValidator<AddEmployeeComand>
+    public class EditEmployeeValidator : AbstractValidator<EditEmployeeComand>
     {
         private readonly IEmployeeService employeeService;
 
-        public AddEmployeeValidator(IEmployeeService employeeService)
+        public EditEmployeeValidator(IEmployeeService employeeService)
         {
             ApplyValidtionsRules();
             ApplyCustomeValidationsRules();
@@ -31,7 +31,7 @@ namespace CompanyProject.Core.Features.Employees.Commands.Validators
         public async void ApplyCustomeValidationsRules()
         {
             RuleFor(e => e.Name)
-                .MustAsync(async (model, Key, CancellationToken) => !await employeeService.IsNameExistAsync(Key))
+                .MustAsync(async (model, Key, CancellationToken) => !await employeeService.IsNameExistAsync(Key, model.Id))
                 .WithMessage("Already exist");
         }
     }

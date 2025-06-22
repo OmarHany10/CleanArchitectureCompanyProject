@@ -30,5 +30,12 @@ namespace CompanyProject.API.Controllers
             var result = await mediator.Send(comand);
             return Result(result);
         }
+
+        [HttpPut("EditEmployee")]
+        public async Task<IActionResult> Edit(EditEmployeeComand comand)
+        {
+            var result = await mediator.Send(comand);
+            return Result(result);
+        }
     }
 }

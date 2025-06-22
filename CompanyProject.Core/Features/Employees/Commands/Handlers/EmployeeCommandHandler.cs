@@ -7,7 +7,10 @@ using MediatR;
 
 namespace CompanyProject.Core.Features.Employees.Commands.Handlers
 {
-    public class EmployeeCommandHandler : ResponseHandler, IRequestHandler<AddEmployeeComand, Response<string>>
+    public class EmployeeCommandHandler : ResponseHandler,
+                                          IRequestHandler<AddEmployeeComand, Response<string>>,
+                                          IRequestHandler<EditEmployeeComand, Response<string>>
+
     {
         private readonly IEmployeeService employeeService;
         private readonly IMapper mapper;
@@ -29,6 +32,23 @@ namespace CompanyProject.Core.Features.Employees.Commands.Handlers
                 return BadRequest<string>(result);
 
             return Created("Added Succefuly");
+        }
+
+        public async Task<Response<string>> Handle(EditEmployeeComand request, CancellationToken cancellationToken)
+        {
+            var employee = mapper.Map<Employee>(request);
+
+            var result = await employeeService.EditAsync(employee);
+
+            if (result != null)
+            {
+                if (result == "Not Found")
+                    return NotFound<string>($"There are no employee having this Id => {request.Id}");
+                else
+                    return BadRequest<string>(result);
+            }
+
+            return Success<string>("Edited Successfuly");
         }
     }
 }

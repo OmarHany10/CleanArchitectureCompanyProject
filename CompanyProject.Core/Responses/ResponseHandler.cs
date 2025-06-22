@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
-namespace CompanyProject.Core.Responses
+﻿namespace CompanyProject.Core.Responses
 {
     public class ResponseHandler
     {
@@ -29,7 +23,7 @@ namespace CompanyProject.Core.Responses
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Added Successfully",
+                Message = "Success",
                 Meta = Meta
             };
         }

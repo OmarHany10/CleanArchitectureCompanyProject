@@ -20,9 +20,16 @@ namespace CompanyProject.Service.Implementations
         {
             var department = await departmentRepository.GetByIdAsync(employee.DepartmentId);
             if (department == null)
-                return $"There is no department has this Id {employee.DepartmentId}";
+                return $"There are no department has this Id {employee.DepartmentId}";
 
             await employeeRepository.AddAsync(employee);
+            return null;
+        }
+
+        public async Task<string> EditAsync(Employee employee)
+        {
+            if (await GetByIdAsync(employee.Id) == null) return "Not Found";
+            await employeeRepository.UpdateAsync(employee);
             return null;
         }
 
@@ -40,6 +47,13 @@ namespace CompanyProject.Service.Implementations
         public async Task<bool> IsNameExistAsync(string name)
         {
             var employee = await employeeRepository.GetTableNoTracking().FirstOrDefaultAsync(e => e.Name == name);
+            if (employee == null) return false;
+            return true;
+        }
+
+        public async Task<bool> IsNameExistAsync(string name, int Id)
+        {
+            var employee = await employeeRepository.GetTableNoTracking().FirstOrDefaultAsync(e => e.Name == name && e.Id != Id);
             if (employee == null) return false;
             return true;
         }
