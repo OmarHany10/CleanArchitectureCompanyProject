@@ -29,7 +29,7 @@ namespace CompanyProject.Core.Features.Employees.Queries.Handlers
 
         public async Task<Response<GetEmployeeByIdDTO>> Handle(GetEmployeeByIdQuery request, CancellationToken cancellationToken)
         {
-            var employee = await employeeService.GetByIdAsync(request.Id);
+            var employee = await employeeService.GetByIdIncludeDepartmentAsync(request.Id);
             if (employee == null)
                 return NotFound<GetEmployeeByIdDTO>();
             var employeeDTO = mapper.Map<GetEmployeeByIdDTO>(employee);

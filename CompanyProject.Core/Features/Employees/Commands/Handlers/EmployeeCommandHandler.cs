@@ -9,7 +9,8 @@ namespace CompanyProject.Core.Features.Employees.Commands.Handlers
 {
     public class EmployeeCommandHandler : ResponseHandler,
                                           IRequestHandler<AddEmployeeComand, Response<string>>,
-                                          IRequestHandler<EditEmployeeComand, Response<string>>
+                                          IRequestHandler<EditEmployeeComand, Response<string>>,
+                                          IRequestHandler<DeleteEmployeeComand, Response<string>>
 
     {
         private readonly IEmployeeService employeeService;
@@ -49,6 +50,19 @@ namespace CompanyProject.Core.Features.Employees.Commands.Handlers
             }
 
             return Success<string>("Edited Successfuly");
+        }
+
+        public async Task<Response<string>> Handle(DeleteEmployeeComand request, CancellationToken cancellationToken)
+        {
+            var result = await employeeService.DeleteAsync(request.Id);
+            if (result != null)
+            {
+                if (result == "Not Found")
+                    return NotFound<string>($"There are no employee have this ID => {request.Id}");
+                else
+                    return BadRequest<string>(result);
+            }
+            return Deleted<string>();
         }
     }
 }

@@ -37,5 +37,12 @@ namespace CompanyProject.API.Controllers
             var result = await mediator.Send(comand);
             return Result(result);
         }
+
+        [HttpDelete("{Id}")]
+        public async Task<IActionResult> Delete(int Id)
+        {
+            var result = await mediator.Send(new DeleteEmployeeComand(Id));
+            return Result(result);
+        }
     }
 }

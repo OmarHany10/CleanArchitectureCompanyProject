@@ -26,6 +26,26 @@ namespace CompanyProject.Service.Implementations
             return null;
         }
 
+        public async Task<string> DeleteAsync(int Id)
+        {
+            var employee = await GetByIdAsync(Id);
+            if (employee == null)
+                return "Not Found";
+
+            var transiction = employeeRepository.BeginTransaction();
+            try
+            {
+                await employeeRepository.DeleteAsync(employee);
+                await transiction.CommitAsync();
+            }
+            catch (Exception ex)
+            {
+                await transiction.RollbackAsync();
+                return ex.Message;
+            }
+            return null;
+        }
+
         public async Task<string> EditAsync(Employee employee)
         {
             if (await GetByIdAsync(employee.Id) == null) return "Not Found";
@@ -39,6 +59,12 @@ namespace CompanyProject.Service.Implementations
         }
 
         public async Task<Employee> GetByIdAsync(int id)
+        {
+            var employee = await employeeRepository.GetTableNoTracking().FirstOrDefaultAsync(e => e.Id == id);
+            return employee;
+        }
+
+        public async Task<Employee> GetByIdIncludeDepartmentAsync(int id)
         {
             var employee = await employeeRepository.GetTableNoTracking().Include(e => e.Department).FirstOrDefaultAsync(e => e.Id == id);
             return employee;
