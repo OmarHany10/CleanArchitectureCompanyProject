@@ -1,4 +1,5 @@
-﻿using CompanyProject.Data.Models;
+﻿using CompanyProject.Data.Enums;
+using CompanyProject.Data.Models;
 
 namespace CompanyProject.Service.Interfaces
 {
@@ -6,6 +7,7 @@ namespace CompanyProject.Service.Interfaces
     {
         public Task<List<Employee>> GetAllAsync();
         public IQueryable<Employee> GetAllAsQueryable();
+        public IQueryable<Employee> FilterPaginationAsQueryable(EmployeeOrderingEnum employeeOrderingEnum, string search);
         public Task<Employee> GetByIdAsync(int id);
         public Task<Employee> GetByIdIncludeDepartmentAsync(int id);
         public Task<string> AddAsync(Employee employee);

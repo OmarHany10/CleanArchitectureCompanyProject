@@ -42,9 +42,9 @@ namespace CompanyProject.Core.Features.Employees.Queries.Handlers
 
         public async Task<PaginatedResult<GetEmployeePaginatedListDTO>> Handle(GetEmployeePaginatiedListQuery request, CancellationToken cancellationToken)
         {
-            Expression<Func<Employee, GetEmployeePaginatedListDTO>> expression = (e => new GetEmployeePaginatedListDTO() { Id = e.Id, Address = e.Address, Name = e.Name, Phone = e.Phone, DepartmentName = e.Name });
+            Expression<Func<Employee, GetEmployeePaginatedListDTO>> expression = (e => new GetEmployeePaginatedListDTO() { Id = e.Id, Address = e.Address, Name = e.Name, Phone = e.Phone, DepartmentName = e.Department.Name });
 
-            var queryable = employeeService.GetAllAsQueryable();
+            var queryable = employeeService.FilterPaginationAsQueryable(request.Orders, request.Search);
             var result = await queryable.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
             return result;
         }

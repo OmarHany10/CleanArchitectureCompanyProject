@@ -1,4 +1,5 @@
-﻿using CompanyProject.Data.Models;
+﻿using CompanyProject.Data.Enums;
+using CompanyProject.Data.Models;
 using CompanyProject.Infrustructure.Interfaces;
 using CompanyProject.Service.Interfaces;
 using Microsoft.EntityFrameworkCore;
@@ -51,6 +52,35 @@ namespace CompanyProject.Service.Implementations
             if (await GetByIdAsync(employee.Id) == null) return "Not Found";
             await employeeRepository.UpdateAsync(employee);
             return null;
+        }
+
+        public IQueryable<Employee> FilterPaginationAsQueryable(EmployeeOrderingEnum employeeOrderingEnum, string search)
+        {
+            var queryable = employeeRepository.GetTableNoTracking().Include(e => e.Department).AsQueryable();
+            if (search != null)
+                queryable = queryable.Where(e => e.Name.Contains(search) || e.Address.Contains(search) || e.Department.Name.Contains(search) || e.Phone.Contains(search));
+
+            switch (employeeOrderingEnum)
+            {
+
+                case EmployeeOrderingEnum.Name:
+                    queryable = queryable.OrderBy(e => e.Name);
+                    break;
+                case EmployeeOrderingEnum.Address:
+                    queryable = queryable.OrderBy(e => e.Address);
+                    break;
+                case EmployeeOrderingEnum.Phone:
+                    queryable = queryable.OrderBy(e => e.Phone);
+                    break;
+                case EmployeeOrderingEnum.DepartmentName:
+                    queryable = queryable.OrderBy(e => e.Department.Name);
+                    break;
+                default:
+                    queryable = queryable.OrderBy(e => e.Id);
+                    break;
+            }
+            return queryable;
+
         }
 
         public IQueryable<Employee> GetAllAsQueryable()
