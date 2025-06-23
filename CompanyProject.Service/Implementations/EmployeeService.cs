@@ -53,6 +53,11 @@ namespace CompanyProject.Service.Implementations
             return null;
         }
 
+        public IQueryable<Employee> GetAllAsQueryable()
+        {
+            return employeeRepository.GetTableNoTracking().Include(e => e.Department);
+        }
+
         public async Task<List<Employee>> GetAllAsync()
         {
             return await employeeRepository.GetAllAsync();

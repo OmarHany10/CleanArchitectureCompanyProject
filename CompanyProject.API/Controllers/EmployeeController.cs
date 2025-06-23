@@ -17,6 +17,13 @@ namespace CompanyProject.API.Controllers
             return Result(result);
         }
 
+        [HttpGet("Pagination")]
+        public async Task<IActionResult> GetPaginated([FromQuery] GetEmployeePaginatiedListQuery getEmployeePaginatiedListQuery)
+        {
+            var result = await mediator.Send(getEmployeePaginatiedListQuery);
+            return Ok(result);
+        }
+
         [HttpGet("{Id}")]
         public async Task<IActionResult> GetById(int Id)
         {

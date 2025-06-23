@@ -5,6 +5,7 @@ namespace CompanyProject.Service.Interfaces
     public interface IEmployeeService
     {
         public Task<List<Employee>> GetAllAsync();
+        public IQueryable<Employee> GetAllAsQueryable();
         public Task<Employee> GetByIdAsync(int id);
         public Task<Employee> GetByIdIncludeDepartmentAsync(int id);
         public Task<string> AddAsync(Employee employee);

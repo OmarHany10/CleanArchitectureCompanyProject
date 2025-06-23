@@ -2,14 +2,18 @@
 using CompanyProject.Core.Features.Employees.Queries.DTOs;
 using CompanyProject.Core.Features.Employees.Queries.Models;
 using CompanyProject.Core.Responses;
+using CompanyProject.Core.Wrabbers;
+using CompanyProject.Data.Models;
 using CompanyProject.Service.Interfaces;
 using MediatR;
+using System.Linq.Expressions;
 
 namespace CompanyProject.Core.Features.Employees.Queries.Handlers
 {
     public class EmployeeQueryHandler : ResponseHandler,
         IRequestHandler<GetEmployeeListQuery, Response<List<GetEmployeeListDTO>>>,
-        IRequestHandler<GetEmployeeByIdQuery, Response<GetEmployeeByIdDTO>>
+        IRequestHandler<GetEmployeeByIdQuery, Response<GetEmployeeByIdDTO>>,
+        IRequestHandler<GetEmployeePaginatiedListQuery, PaginatedResult<GetEmployeePaginatedListDTO>>
     {
         private readonly IEmployeeService employeeService;
         private readonly IMapper mapper;
@@ -34,6 +38,15 @@ namespace CompanyProject.Core.Features.Employees.Queries.Handlers
                 return NotFound<GetEmployeeByIdDTO>();
             var employeeDTO = mapper.Map<GetEmployeeByIdDTO>(employee);
             return Success(employeeDTO);
+        }
+
+        public async Task<PaginatedResult<GetEmployeePaginatedListDTO>> Handle(GetEmployeePaginatiedListQuery request, CancellationToken cancellationToken)
+        {
+            Expression<Func<Employee, GetEmployeePaginatedListDTO>> expression = (e => new GetEmployeePaginatedListDTO() { Id = e.Id, Address = e.Address, Name = e.Name, Phone = e.Phone, DepartmentName = e.Name });
+
+            var queryable = employeeService.GetAllAsQueryable();
+            var result = await queryable.Select(expression).ToPaginatedListAsync(request.PageNumber, request.PageSize);
+            return result;
         }
     }
 }
