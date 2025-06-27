@@ -1,11 +1,13 @@
 ﻿using AutoMapper;
 using CompanyProject.Core.Features.Employees.Queries.DTOs;
 using CompanyProject.Core.Features.Employees.Queries.Models;
+using CompanyProject.Core.Resources;
 using CompanyProject.Core.Responses;
 using CompanyProject.Core.Wrabbers;
 using CompanyProject.Data.Models;
 using CompanyProject.Service.Interfaces;
 using MediatR;
+using Microsoft.Extensions.Localization;
 using System.Linq.Expressions;
 
 namespace CompanyProject.Core.Features.Employees.Queries.Handlers
@@ -18,7 +20,7 @@ namespace CompanyProject.Core.Features.Employees.Queries.Handlers
         private readonly IEmployeeService employeeService;
         private readonly IMapper mapper;
 
-        public EmployeeQueryHandler(IEmployeeService employeeService, IMapper mapper)
+        public EmployeeQueryHandler(IEmployeeService employeeService, IMapper mapper, IStringLocalizer<SharedResource> stringLocalizer) : base(stringLocalizer)
         {
             this.employeeService = employeeService;
             this.mapper = mapper;

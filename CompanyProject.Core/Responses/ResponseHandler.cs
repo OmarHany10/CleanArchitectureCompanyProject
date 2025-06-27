@@ -1,11 +1,15 @@
-﻿namespace CompanyProject.Core.Responses
+﻿using CompanyProject.Core.Resources;
+using Microsoft.Extensions.Localization;
+
+namespace CompanyProject.Core.Responses
 {
     public class ResponseHandler
     {
+        private readonly IStringLocalizer<SharedResource> stringLocalizer;
 
-        public ResponseHandler()
+        public ResponseHandler(IStringLocalizer<SharedResource> stringLocalizer)
         {
-
+            this.stringLocalizer = stringLocalizer;
         }
         public Response<T> Deleted<T>()
         {
@@ -13,7 +17,7 @@
             {
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Deleted Successfully"
+                Message = stringLocalizer[SharedResourcesKey.Deleted]
             };
         }
         public Response<T> Success<T>(T entity, object Meta = null)
@@ -23,7 +27,7 @@
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = "Success",
+                Message = stringLocalizer[SharedResourcesKey.Created],
                 Meta = Meta
             };
         }
@@ -33,7 +37,7 @@
             {
                 StatusCode = System.Net.HttpStatusCode.Unauthorized,
                 Succeeded = true,
-                Message = "UnAuthorized"
+                Message = stringLocalizer[SharedResourcesKey.Unauthorized]
             };
         }
         public Response<T> BadRequest<T>(string Message = null)
@@ -42,7 +46,7 @@
             {
                 StatusCode = System.Net.HttpStatusCode.BadRequest,
                 Succeeded = false,
-                Message = Message == null ? "Bad Request" : Message
+                Message = Message == null ? stringLocalizer[SharedResourcesKey.BadRequest] : Message
             };
         }
 
@@ -52,7 +56,7 @@
             {
                 StatusCode = System.Net.HttpStatusCode.NotFound,
                 Succeeded = false,
-                Message = message == null ? "Not Found" : message
+                Message = message == null ? stringLocalizer[SharedResourcesKey.NotFound] : message
             };
         }
 
@@ -63,7 +67,7 @@
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.Created,
                 Succeeded = true,
-                Message = "Created Successfuly",
+                Message = stringLocalizer[SharedResourcesKey.Created],
                 Meta = Meta
             };
         }

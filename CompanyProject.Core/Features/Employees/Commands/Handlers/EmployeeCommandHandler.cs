@@ -1,9 +1,11 @@
 ﻿using AutoMapper;
 using CompanyProject.Core.Features.Employees.Commands.Models;
+using CompanyProject.Core.Resources;
 using CompanyProject.Core.Responses;
 using CompanyProject.Data.Models;
 using CompanyProject.Service.Interfaces;
 using MediatR;
+using Microsoft.Extensions.Localization;
 
 namespace CompanyProject.Core.Features.Employees.Commands.Handlers
 {
@@ -16,7 +18,7 @@ namespace CompanyProject.Core.Features.Employees.Commands.Handlers
         private readonly IEmployeeService employeeService;
         private readonly IMapper mapper;
 
-        public EmployeeCommandHandler(IEmployeeService employeeService, IMapper mapper)
+        public EmployeeCommandHandler(IEmployeeService employeeService, IMapper mapper, IStringLocalizer<SharedResource> stringLocalizer) : base(stringLocalizer)
         {
             this.employeeService = employeeService;
             this.mapper = mapper;
