@@ -1,10 +1,5 @@
 ﻿using CompanyProject.Core.Features.Employees.Queries.DTOs;
-using CompanyProject.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using CompanyProject.Data.Commands;
 
 namespace CompanyProject.Core.Features.Mapping.Employee
 {
@@ -13,7 +8,7 @@ namespace CompanyProject.Core.Features.Mapping.Employee
         public void GetEmployeeListMapping()
         {
             CreateMap<Data.Models.Employee, GetEmployeeListDTO>().
-                ForMember(dest => dest.DepartmentName, options => options.MapFrom(src => src.Department.Name));
+                ForMember(dest => dest.DepartmentName, options => options.MapFrom(src => GeneralLocalizable.Localize(src.Department.NameAr, src.Department.NameEn)));
         }
     }
 }

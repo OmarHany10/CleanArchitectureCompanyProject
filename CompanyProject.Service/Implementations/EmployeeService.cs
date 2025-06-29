@@ -58,7 +58,7 @@ namespace CompanyProject.Service.Implementations
         {
             var queryable = employeeRepository.GetTableNoTracking().Include(e => e.Department).AsQueryable();
             if (search != null)
-                queryable = queryable.Where(e => e.Name.Contains(search) || e.Address.Contains(search) || e.Department.Name.Contains(search) || e.Phone.Contains(search));
+                queryable = queryable.Where(e => e.Name.Contains(search) || e.Address.Contains(search) || e.Department.NameEn.Contains(search) || e.Phone.Contains(search));
 
             switch (employeeOrderingEnum)
             {
@@ -73,7 +73,7 @@ namespace CompanyProject.Service.Implementations
                     queryable = queryable.OrderBy(e => e.Phone);
                     break;
                 case EmployeeOrderingEnum.DepartmentName:
-                    queryable = queryable.OrderBy(e => e.Department.Name);
+                    queryable = queryable.OrderBy(e => e.Department.NameEn);
                     break;
                 default:
                     queryable = queryable.OrderBy(e => e.Id);
