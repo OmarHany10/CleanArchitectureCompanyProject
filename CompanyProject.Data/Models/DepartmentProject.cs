@@ -4,7 +4,6 @@ namespace CompanyProject.Data.Models
 {
     public class DepartmentProject
     {
-        public int Id { get; set; }
 
         [ForeignKey(nameof(Department))]
         public int DepartmentId { get; set; }
