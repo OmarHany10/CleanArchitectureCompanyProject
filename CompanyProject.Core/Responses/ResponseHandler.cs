@@ -27,7 +27,7 @@ namespace CompanyProject.Core.Responses
                 Data = entity,
                 StatusCode = System.Net.HttpStatusCode.OK,
                 Succeeded = true,
-                Message = stringLocalizer[SharedResourcesKey.Created],
+                Message = stringLocalizer[SharedResourcesKey.Success],
                 Meta = Meta
             };
         }

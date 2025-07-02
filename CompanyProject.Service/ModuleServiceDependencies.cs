@@ -9,6 +9,7 @@ namespace CompanyProject.Service
         public static IServiceCollection AddServiceDependencies(this IServiceCollection services)
         {
             services.AddScoped<IEmployeeService, EmployeeService>();
+            services.AddScoped<IDepartmentService, DepartmentService>();
             return services;
         }
     }

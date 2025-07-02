@@ -20,4 +20,11 @@
     <ProjectReference Include="..\CompanyProject.Service\CompanyProject.Service.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Features\Departments\Commands\Handlers\" />
+    <Folder Include="Features\Departments\Commands\Models\" />
+    <Folder Include="Features\Departments\Commands\Validators\" />
+    <Folder Include="Features\Mapping\Department\CommandMapping\" />
+  </ItemGroup>
+
 </Project>
