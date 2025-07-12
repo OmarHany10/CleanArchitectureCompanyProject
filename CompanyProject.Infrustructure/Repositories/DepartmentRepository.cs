@@ -2,19 +2,21 @@
 using CompanyProject.Infrustructure.BaseRepository;
 using CompanyProject.Infrustructure.Context;
 using CompanyProject.Infrustructure.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace CompanyProject.Infrustructure.Repositories
 {
-    public class DepartmentRepository: BaseRepository<Department>, IDepartmentRepository
+    public class DepartmentRepository : BaseRepository<Department>, IDepartmentRepository
     {
+        private readonly DbSet<Department> departments;
         public DepartmentRepository(ApplicationDbContext context) : base(context)
         {
-            
+            departments = context.departments;
+        }
+
+        public Task<bool> IsExist(int id)
+        {
+            return departments.AnyAsync(x => x.Id == id);
         }
     }
 }

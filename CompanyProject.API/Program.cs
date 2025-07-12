@@ -1,9 +1,11 @@
 
 using CompanyProject.Core;
 using CompanyProject.Core.MiddleWare;
+using CompanyProject.Data.Models;
 using CompanyProject.Infrustructure;
 using CompanyProject.Infrustructure.Context;
 using CompanyProject.Service;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Localization;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Options;
@@ -19,6 +21,7 @@ namespace CompanyProject.API
 
             // Add services to the container.
             builder.Services.AddDbContext<ApplicationDbContext>(options => options.UseSqlServer(builder.Configuration.GetConnectionString("cs")));
+            builder.Services.AddIdentity<ApplicationUser, IdentityRole>().AddEntityFrameworkStores<ApplicationDbContext>();
 
             builder.Services.AddInfrustructureDependencies();
             builder.Services.AddServiceDependencies();

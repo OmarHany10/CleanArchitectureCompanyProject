@@ -1,14 +1,16 @@
 ﻿using CompanyProject.Data.Models;
+using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 
 namespace CompanyProject.Infrustructure.Context
 {
-    public class ApplicationDbContext : DbContext
+    public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
         public ApplicationDbContext() { }
 
         public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options) { }
 
+        public DbSet<ApplicationUser> applicationUsers { get; set; }
         public DbSet<Employee> employees { get; set; }
         public DbSet<Department> departments { get; set; }
         public DbSet<Project> projects { get; set; }

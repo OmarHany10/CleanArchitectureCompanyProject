@@ -1,14 +1,10 @@
 ﻿using CompanyProject.Data.Models;
 using CompanyProject.Infrustructure.BaseRepository;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CompanyProject.Infrustructure.Interfaces
 {
-    public interface IDepartmentRepository: IBaseRepository<Department>
+    public interface IDepartmentRepository : IBaseRepository<Department>
     {
+        Task<bool> IsExist(int id);
     }
 }

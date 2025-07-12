@@ -7,12 +7,14 @@ namespace CompanyProject.Core.Features.Employees.Commands.Validators
     public class AddEmployeeValidator : AbstractValidator<AddEmployeeComand>
     {
         private readonly IEmployeeService employeeService;
+        private readonly IDepartmentService departmentService;
 
-        public AddEmployeeValidator(IEmployeeService employeeService)
+        public AddEmployeeValidator(IEmployeeService employeeService, IDepartmentService departmentService)
         {
             ApplyValidtionsRules();
             ApplyCustomeValidationsRules();
             this.employeeService = employeeService;
+            this.departmentService = departmentService;
         }
 
         public void ApplyValidtionsRules()
@@ -33,6 +35,11 @@ namespace CompanyProject.Core.Features.Employees.Commands.Validators
             RuleFor(e => e.Name)
                 .MustAsync(async (model, Key, CancellationToken) => !await employeeService.IsNameExistAsync(Key))
                 .WithMessage("Already exist");
+
+            RuleFor(e => e.DepartmentId)
+                .MustAsync(async (model, key, CancellationToken) => await departmentService.IsExistAsync(key))
+                .WithMessage($"There is no department with this id");
+
         }
     }
 }
