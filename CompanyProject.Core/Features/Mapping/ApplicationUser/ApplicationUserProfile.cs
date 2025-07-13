@@ -7,6 +7,8 @@ namespace CompanyProject.Core.Features.Mapping.ApplicationUser
         public ApplicationUserProfile()
         {
             AddApplicationUserMapping();
+            GetApplicationUserPaginatedListMapping();
+            UpdateApplicationUserMapping();
         }
     }
 }
