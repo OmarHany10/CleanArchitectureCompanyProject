@@ -31,9 +31,23 @@ namespace CompanyProject.API.Controllers
         }
 
         [HttpPut]
-        public async Task<IActionResult> Update([FromBody] UpdateApplicationUserCommand updateApplicationUserCommand)
+        public async Task<IActionResult> Update(UpdateApplicationUserCommand updateApplicationUserCommand)
         {
             var result = await mediator.Send(updateApplicationUserCommand);
+            return Result(result);
+        }
+
+        [HttpPut("ChangePassword")]
+        public async Task<IActionResult> ChangePassword(ChangeApplicationUserPasswordCommand changeApplicationUserPasswordCommand)
+        {
+            var result = await mediator.Send(changeApplicationUserPasswordCommand);
+            return Result(result);
+        }
+
+        [HttpDelete]
+        public async Task<IActionResult> Delete([FromQuery] DeleteApplicationUserCoommand deleteApplicationUserCoommand)
+        {
+            var result = await mediator.Send(deleteApplicationUserCoommand);
             return Result(result);
         }
     }

@@ -10,7 +10,10 @@ namespace CompanyProject.Core.Features.ApplicationUser.Commands.Handlers
 {
     public class ApplicationUserCommandHandler : ResponseHandler,
         IRequestHandler<AddApplicationUserCommand, Response<string>>,
-        IRequestHandler<UpdateApplicationUserCommand, Response<string>>
+        IRequestHandler<UpdateApplicationUserCommand, Response<string>>,
+        IRequestHandler<DeleteApplicationUserCoommand, Response<string>>,
+        IRequestHandler<ChangeApplicationUserPasswordCommand, Response<string>>
+
     {
         private readonly IStringLocalizer<SharedResource> stringLocalizer;
         private readonly UserManager<Data.Models.ApplicationUser> userManager;
@@ -64,6 +67,36 @@ namespace CompanyProject.Core.Features.ApplicationUser.Commands.Handlers
                 return BadRequest<string>(result.Errors.FirstOrDefault().Description);
 
             return Success("Updated");
+        }
+
+        public async Task<Response<string>> Handle(DeleteApplicationUserCoommand request, CancellationToken cancellationToken)
+        {
+            var user = await userManager.FindByIdAsync(request.Id);
+
+            if (user == null)
+                return NotFound<string>("There are no user have this Id");
+
+            var result = await userManager.DeleteAsync(user);
+
+            if (!result.Succeeded)
+                return BadRequest<string>(result.Errors.FirstOrDefault().Description);
+
+            return Success<string>(stringLocalizer[SharedResourcesKey.Deleted]);
+
+        }
+
+        public async Task<Response<string>> Handle(ChangeApplicationUserPasswordCommand request, CancellationToken cancellationToken)
+        {
+            var user = await userManager.FindByIdAsync(request.Id);
+
+            if (user == null)
+                return NotFound<string>("There are no user have this Id");
+
+            var result = await userManager.ChangePasswordAsync(user, request.OldPassword, request.NewPassword);
+            if (!result.Succeeded)
+                return BadRequest<string>(result.Errors.FirstOrDefault().Description);
+
+            return Success<string>(stringLocalizer[SharedResourcesKey.Success]);
         }
     }
 }
